@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect</title>
+</head>
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Función para obtener el valor de un parámetro de la URL
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+
+                console.log(results)
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+            // Función para redirigir al usuario al enlace profundo
+            function redirectToDeepLink() {
+                // Obtén el valor del parámetro 'url' de la URL
+                var encodedDeepLink = getParameterByName('url');
+
+                if (encodedDeepLink) {
+                    // Decodifica el enlace profundo y redirige
+                    var deepLink = decodeURIComponent(encodedDeepLink);
+                    window.location.href = deepLink;
+                } else {
+                    // Maneja el caso en el que no se proporciona el parámetro 'url'
+                    console.error("El parámetro 'url' no está presente en la URL.");
+                }
+            }
+            redirectToDeepLink();
+        })
+    </script>
+</body>
+</html>
