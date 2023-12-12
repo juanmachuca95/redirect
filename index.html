@@ -14,7 +14,7 @@
                 // Crea un objeto URL
                 var urlObj = new URL(url);
                 // Obtiene el valor del parámetro 'url'
-                var valorUrl = urlObj.searchParams.get(name);
+                var valorUrl = urlObj.search.replace('?url=', '')
                 console.log(valorUrl)
                 return valorUrl;
             }
